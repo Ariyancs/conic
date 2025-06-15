@@ -47,22 +47,13 @@
     </svg>
   </button>
 </div>
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const btn = document.getElementById("mobile-menu-toggle");
-    const nav = document.getElementById("main-nav");
-    btn.addEventListener("click", function() {
-      nav.classList.toggle("hidden");
-    });
-  });
-</script>
 <header class="bg-green-700 text-white shadow sticky top-0 z-50 bg-gradient-to-r from-green-700 via-teal-600 to-green-800">
   <div class="container mx-auto flex flex-wrap justify-between items-center p-4">
     <div class="text-xl sm:text-2xl font-bold flex items-center">
       <img src="Blue Minimal Electronics Modern Logo.png" class="inline-block h-8 w-8 mr-2 align-middle" alt="Logo">
       <span class="align-middle">Conic Systems Pvt. Ltd.</span>
     </div>
-    <nav id="main-nav" class="w-full sm:w-auto mt-4 sm:mt-0 flex flex-wrap justify-center sm:justify-end space-x-2 sm:space-x-4 text-xs sm:text-sm">
+    <nav id="main-nav" class="w-full sm:w-auto mt-4 sm:mt-0 flex flex-col sm:flex-row justify-center sm:justify-end space-y-2 sm:space-y-0 sm:space-x-4 text-xs sm:text-sm hidden sm:flex">
       <a href="#" class="hover:text-yellow-300 block">Home</a>
       <a href="#" class="hover:text-yellow-300 block">About</a>
       <a href="#" class="hover:text-yellow-300 block">Products</a>
@@ -74,6 +65,48 @@
     </nav>
   </div>
 </header>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const btn = document.getElementById("mobile-menu-toggle");
+    const nav = document.getElementById("main-nav");
+    function showHomeOnlyMobile() {
+      if (window.innerWidth < 640) {
+        nav.classList.add("hidden");
+        // Only show Home tab for mobile by default
+        nav.querySelectorAll("a").forEach((a, i) => {
+          if (i === 0) {
+            a.classList.remove("hidden");
+          } else {
+            a.classList.add("hidden");
+          }
+        });
+      } else {
+        nav.classList.remove("hidden");
+        nav.classList.add("sm:flex");
+        nav.querySelectorAll("a").forEach(a => a.classList.remove("hidden"));
+      }
+    }
+    showHomeOnlyMobile();
+    window.addEventListener("resize", showHomeOnlyMobile);
+
+    btn.addEventListener("click", function() {
+      nav.classList.toggle("hidden");
+      // When opening, show all tabs
+      if (!nav.classList.contains("hidden")) {
+        nav.querySelectorAll("a").forEach(a => a.classList.remove("hidden"));
+      } else {
+        // When closing, show only Home tab
+        nav.querySelectorAll("a").forEach((a, i) => {
+          if (i === 0) {
+            a.classList.remove("hidden");
+          } else {
+            a.classList.add("hidden");
+          }
+        });
+      }
+    });
+  });
+</script>
 
 <!-- Hero Section -->
 <section class="relative text-white text-center py-16 sm:py-20 md:py-28 overflow-hidden">
@@ -172,26 +205,25 @@
   <div class="container mx-auto">
     <h2 class="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-10">Our Work in Action</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8">
-      <div class="flex flex-col items-center">
-        <img src="https://www.conicsystems.net/index.11.jpg" alt="CSPL Work 1" class="rounded-lg shadow mb-4 w-full object-cover max-h-64">
+      <div class="flex flex-col items-center bg-white/80 rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-0">
+        <img src="https://www.conicsystems.net/index.11.jpg" alt="CSPL Work 1" class="rounded-lg shadow mb-4 w-full object-cover max-h-48 sm:max-h-64 aspect-video">
         <p class="mt-2 text-base sm:text-xl text-center text-green-700 font-semibold">
           Attract your clients with your Innovative Creation with Multi-Color Multi-Font Multi-Effect Digital Signage
         </p>
       </div>
-      <div class="flex flex-col items-center">
-        <img src="https://www.conicsystems.net/index.12.jpg" alt="CSPL Work 2" class="rounded-lg shadow mb-4 w-full object-cover max-h-64">
+      <div class="flex flex-col items-center bg-white/80 rounded-xl shadow-lg p-4 sm:p-6 mb-4 sm:mb-0">
+        <img src="https://www.conicsystems.net/index.12.jpg" alt="CSPL Work 2" class="rounded-lg shadow mb-4 w-full object-cover max-h-48 sm:max-h-64 aspect-video">
         <p class="mt-2 text-base sm:text-xl text-center text-green-700 font-semibold">
           Speed-Up your Design Time with your creativity and imagination
         </p>
       </div>
-      <div class="flex flex-col items-center">
-        <img src="https://www.conicsystems.net/02062007(001).jpg" alt="CSPL Work 3" class="rounded-lg shadow mb-4 w-full object-cover max-h-64">
+      <div class="flex flex-col items-center bg-white/80 rounded-xl shadow-lg p-4 sm:p-6">
+        <img src="https://www.conicsystems.net/02062007(001).jpg" alt="CSPL Work 3" class="rounded-lg shadow mb-4 w-full object-cover max-h-48 sm:max-h-64 aspect-video">
         <p class="mt-2 text-base sm:text-xl text-center text-green-700 font-semibold">
           POSSIBLE!!! Now send an SMS from anywhere to your Digital Signage Board
         </p>
       </div>
     </div>
-  </div>
 </section>
 
 <!-- Features -->
@@ -199,15 +231,15 @@
   <div class="container mx-auto text-center">
     <h2 class="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8">Why Choose Us?</h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-gray-700">
-      <div>
+      <div class="bg-gray-100 rounded-xl shadow p-6 flex flex-col items-center">
         <h3 class="text-lg sm:text-xl font-semibold mb-2">Innovative Designs</h3>
         <p class="text-sm sm:text-base">Create stunning digital signages with customizable effects and fonts.</p>
       </div>
-      <div>
+      <div class="bg-gray-100 rounded-xl shadow p-6 flex flex-col items-center">
         <h3 class="text-lg sm:text-xl font-semibold mb-2">Real-Time Messaging</h3>
         <p class="text-sm sm:text-base">Send SMS messages directly to display boards anytime, anywhere.</p>
       </div>
-      <div>
+      <div class="bg-gray-100 rounded-xl shadow p-6 flex flex-col items-center">
         <h3 class="text-lg sm:text-xl font-semibold mb-2">Reliable Solutions</h3>
         <p class="text-sm sm:text-base">Trusted by top organizations for accurate, time-critical displays.</p>
       </div>
